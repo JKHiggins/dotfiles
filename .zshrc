@@ -92,6 +92,12 @@ source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+# Added by canvas-lms setup-development script
+# # This adds the brew bin to your PATH
+if $(which brew >/dev/null 2>&1); then
+  export PATH="$PATH:$(brew --prefix)/bin"
+fi
 
 # ALIASES
 alias b="bundle exec "
@@ -105,5 +111,5 @@ alias zshrc="vim ~/.zshrc"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Set up dinghy ENV Vars if it's running
-$(dinghy shellinit)
+# $(dinghy shellinit)
 alias config='/usr/bin/git --git-dir=/Users/jhiggins/.cfg/ --work-tree=/Users/jhiggins'

@@ -11,6 +11,7 @@
 "INSTALL YCM
 "cd ~/.vim/bundle/YouCompleteMe
 "./install.py --clang-completer
+"
 
 """"""""""""""""
 "--- Plugins---"
@@ -27,8 +28,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " COLORS
-Plugin 'altercation/vim-colors-solarized'   " adds solarized colorscheme
-Plugin 'morhetz/gruvbox'                    " adds gruvbox theme
+" Plugin 'altercation/vim-colors-solarized'   " adds solarized colorscheme
+" Plugin 'morhetz/gruvbox'                    " adds gruvbox theme
+Plugin 'mhartington/oceanic-next'           " adds oceanic next theme
 
 " PLUGINS
 Plugin 'tmhedberg/matchit'                  " extends matching on %
@@ -42,6 +44,7 @@ Plugin 'tpope/vim-sensible'                 " basic vim defaults which are nice
 Plugin 'tpope/vim-endwise'                  " closes several blocks automatically
 Plugin 'tpope/vim-abolish'                  " support for case switching
 Plugin 'tpope/vim-repeat'                   " support for . repeating last command
+Plugin 'tpope/vim-rbenv'                    " support for rbenv ruby versions
 Plugin 'airblade/vim-gitgutter'             " adds git stati to the gutter
 Plugin 'ck3g/vim-change-hash-syntax'        " allows hashrocket -> json convert
 Plugin 'jgdavey/vim-blockle'                " switch block types for ruby
@@ -134,12 +137,21 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>""
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" --------------------
+" vim-gitgutter config
+" --------------------
+
+let g:gitgutter_max_signs = 1000
 " }}}
 
 """"""""""""""""""""
 "--- Misc Config ---"
 """"""""""""""""""""
 " ------ Basic Config -----{{{
+"-- Use bash ruby
+set shell=zsh\ -l
+
 "-- Change split locations
 set splitbelow
 set splitright
@@ -150,23 +162,33 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
+"-- Gruvbox color
+" let g:gruvbox_contrast_dark = 'hard'
+" colorscheme gruvbox
+
 "-- Color Scheme
 syntax enable
+set t_Co=256
 set background=dark
 
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+"-- OceanicNext color
+colorscheme OceanicNext
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterDelete ctermfg=red
+highlight GitGutterChangeDelete ctermfg=yellow
+highlight clear LineNr
 
 "-- Set invisibles to show
 set listchars=tab:--,trail:-
 set list
 
+"-- Invisible character colors
+highlight SpecialKey ctermbg=23 guibg=23
+
 "-- Search config
 set incsearch
-
-"-- Invisible character colors
-highlight NonText guifg=#4a4a59
-highlight SpecialKey guifg=#4a4a59
 
 "-- Line Numbers
 set number
@@ -176,13 +198,31 @@ set number
 highlight ColorColumn ctermbg=65
 call matchadd('ColorColumn', '\%81v', 100)
 
-"-- Set color density for vim
-set t_Co=256
+"-- Highlight searches
+set hlsearch
 " }}}
 
 """""""""""""""""""
 "--- FUNCTIONS ---"
 """""""""""""""""""
+
+"----- Flash Next Search -----{{{
+
+" Flashes the next highlighted word in red for ease of following when
+"   tracking searches
+
+highlight NextFlash ctermbg=52
+function! HLNext (blinktime)
+  let [bufnum, lnum, col, off] = getpos('.')
+  let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+  let target_pat = '\c\%#\%('.@/.'\)'
+  let ring = matchadd('NextFlash', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 500) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+" }}}
 
 "----- Fuzzy Find Files -----{{{
 
@@ -219,6 +259,9 @@ nnoremap <leader>vf :vsp<cr>:call SelectaCommand(find_cmd, "", ":e")<cr>
 """""""""""""""""""""""
 
 "----- Ease of use -----{{{
+"--- Call highlight next when searching
+nnoremap <silent> n n:call HLNext(0.4)<cr>
+nnoremap <silent> N N:call HLNext(0.4)<cr>
 
 "--- Copy to system register
 noremap <leader>c "*y
@@ -246,6 +289,9 @@ noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
+
+"-- Disable highlight until next search
+noremap <leader>h :noh<CR>
 " }}}
 
 "----- Operators -----{{{
@@ -319,15 +365,6 @@ augroup filetype_html
   autocmd!
   "--- Auto format files on enter and save
   autocmd BufWritePre,BufRead *.html :normal gg=G
-augroup END
-
-augroup filetype_ruby
-  autocmd!
-  " "--- Auto format files on enter and save
-  " autocmd BufWritePre,BufRead *.rb :normal gg=G
-  "
-  " "--- Auto remove trailing whitespace
-  " autocmd BufWritePre *.rb :%s/\s\+$//e
 augroup END
 
 augroup filetype_markdown
