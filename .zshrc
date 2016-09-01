@@ -109,6 +109,7 @@ alias vundle="vim +PluginInstall +qall"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias add-dotfiles='config add ~/.vimrc; config add ~/.zshrc'
 
 # Set up dinghy ENV Vars if it's running
 # $(dinghy shellinit)
