@@ -1,0 +1,5 @@
+require("jhiggins.set")
+require("jhiggins.functions")
+require("jhiggins.remap")
+require("jhiggins.autocmd")
+require("jhiggins.tasklist")
