@@ -73,7 +73,13 @@ return require('packer').startup(function(use)
         }
     }
 
+    -- Change behavior of signature popups
     use {
         "ray-x/lsp_signature.nvim",
+    }
+
+    -- Convient character wrap changing
+    use {
+        "tpope/vim-surround",
     }
 end)
