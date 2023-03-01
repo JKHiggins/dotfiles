@@ -133,6 +133,8 @@ ul_massupdate='~/massupdate_ul'
 ultralist_g() {
     cd ~/ultralist/
     ultralist "$1" "${@:2}"
+    clear
+    ultralist list completed:false group:project
     cd -
 }
 
@@ -174,5 +176,4 @@ alias dn_pub='dotnet build;dotnet publish -r win-x64 --no-self-contained'
 
 # > Config Management
 # copy my dotfiles and create a commit
-alias commit_dotfiles='cp ~/.tmux.conf ~/.config/; cp ~/.zshrc ~/.config/; cd ~/.config/; git add .; git commit -m "Dotfile update"'
 eval "$(~/.rbenv/bin/rbenv init - zsh)"
