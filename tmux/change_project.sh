@@ -4,7 +4,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 project_directories=($(ls -1d ~/projects/*/ | xargs -n1 basename))
 
-# Oh so diry cuz of the cmds having hardcoded "~/projects"...
+# Oh so dirty cuz of the cmds having hardcoded "~/projects"...
 project_directories+=("../.config/")
 
 menu_items=(
