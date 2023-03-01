@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=~/go/bin:$PATH
+export PATH=$HOME/.rbenv/bin:$PATH
 
 TERM="screen-256color"
 export TERM
@@ -79,6 +80,7 @@ DISABLE_AUTO_TITLE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
+    zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -173,3 +175,4 @@ alias dn_pub='dotnet build;dotnet publish -r win-x64 --no-self-contained'
 # > Config Management
 # copy my dotfiles and create a commit
 alias commit_dotfiles='cp ~/.tmux.conf ~/.config/; cp ~/.zshrc ~/.config/; cd ~/.config/; git add .; git commit -m "Dotfile update"'
+eval "$(~/.rbenv/bin/rbenv init - zsh)"
