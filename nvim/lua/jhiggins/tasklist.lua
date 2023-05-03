@@ -100,6 +100,6 @@ function TaskList.new_task()
     end)
 end
 
-vim.api.nvim_set_keymap('n', 'nt', ':lua require"jhiggins.tasklist".new_task()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>nt', ':lua require"jhiggins.tasklist".new_task()<CR>', {noremap = true})
 
 return TaskList

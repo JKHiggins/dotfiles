@@ -81,4 +81,7 @@ return require('packer').startup(function(use)
 
     -- Block commenting
     use { "terrortylor/nvim-comment" }
+
+    -- Expand motion repeating to include other movements
+    use { "Houl/repmo-vim" }
 end)

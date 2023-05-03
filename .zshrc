@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
+export PATH=/home/jhiggins/.local/bin:$PATH
 
 TERM="screen-256color"
 export TERM
@@ -177,3 +178,11 @@ alias dn_pub='dotnet build;dotnet publish -r win-x64 --no-self-contained'
 # > Config Management
 # copy my dotfiles and create a commit
 eval "$(~/.rbenv/bin/rbenv init - zsh)"
+
+# > Docker
+# I don't want to type sudo docker everytime
+alias dock='sudo docker'
+
+# > Terraform
+# I don't want to type sudo terraform every time
+alias tf='sudo terraform'
