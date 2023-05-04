@@ -135,6 +135,11 @@ _G.packer_plugins = {
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
     url = "https://github.com/ray-x/lsp_signature.nvim"
   },
+  ["lspkind.nvim"] = {
+    loaded = true,
+    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
+    url = "https://github.com/onsails/lspkind.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -190,11 +195,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
-  },
-  ["tabnine-nvim"] = {
-    loaded = true,
-    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/tabnine-nvim",
-    url = "https://github.com/codota/tabnine-nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,

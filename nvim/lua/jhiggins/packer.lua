@@ -50,9 +50,6 @@ return require('packer').startup(function(use)
     -- Git stuff
     use('tpope/vim-fugitive')
 
-    -- Install tabnine AI LSP integration
-    use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
-
     -- Setup the LSP
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -73,6 +70,9 @@ return require('packer').startup(function(use)
             -- Snippets
             {'L3MON4D3/LuaSnip'},
             {'rafamadriz/friendly-snippets'},
+
+            -- LSP kind, icon support
+            {'onsails/lspkind.nvim'},
         }
     }
 

@@ -13,26 +13,8 @@ lsp.ensure_installed({
     'bashls'
 })
 
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
-})
-
-lsp.set_preferences({
-    sign_icons = { }
-})
-
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings,
-})
-
 lsp.on_attach(function(client, bufnr)
-    local opts = {buffer = bufnr, remap = false}
+    local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -45,7 +27,6 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 end)
 
-local pid = vim.fn.getpid()
 local omnisharp_bin = "/home/jhiggins/.local/omnisharp/OmniSharp"
 
 lsp.configure('omnisharp', {
@@ -127,16 +108,73 @@ lsp.configure('omnisharp', {
             }
         end
     end,
-    cmd = { omnisharp_bin };
+    cmd = { omnisharp_bin },
 })
 
 lsp.configure('terraformls', {
     on_attach = function(client, bufnr)
         vim.api.nvim_create_autocmd("BufWritePre", {
-            pattern = {"*.tf", "*.tfvars"},
+            pattern = { "*.tf", "*.tfvars" },
             callback = vim.lsp.buf.format(),
         })
     end
 })
 
 lsp.setup()
+
+local cmp = require 'cmp'
+local lspkind = require 'lspkind'
+local luasnip = require 'luasnip'
+local cmp_config = lsp.defaults.cmp_config({
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<Tab>"] = cmp.mapping.confirm({
+            -- this is the important line
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
+        }),
+        ["<C-l>"] = cmp.mapping(function(fallback)
+            if luasnip and luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+        ["<C-h>"] = cmp.mapping(function(fallback)
+            if luasnip and luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+    }),
+
+    sources = cmp.config.sources({
+        -- { name = "copilot", group_index = 2 },
+        { name = "nvim_lsp" },
+        { name = "luasnip" },             -- For luasnip users.
+    }, {
+        { name = "buffer" },
+    }),
+
+    formatting = {
+        fields = {
+            cmp.ItemField.Kind,
+            cmp.ItemField.Abbr,
+            cmp.ItemField.Menu,
+        },
+        format = lspkind.cmp_format({
+            mode = 'symbol_text',
+            maxwidth = 40,
+            ellipsis_char = '...',
+            -- symbol_map = { Copilot = "" }
+        }),
+    }
+})
+
+cmp.setup(cmp_config)
