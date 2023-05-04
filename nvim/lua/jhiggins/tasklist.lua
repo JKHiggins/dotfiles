@@ -18,7 +18,6 @@ local function lines_from(file)
     return lines
 end
 
-
 function TaskList.send_tmux_cmd_to_ultralist(subject)
     -- Silently send keys to my tasklist pane in another window
     local command = "silent !tmux send-keys -t std-dev:tasklist.1 'ula " .. subject .. "' Enter"

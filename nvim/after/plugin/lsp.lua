@@ -6,8 +6,11 @@ lsp.ensure_installed({
     'tsserver',
     'eslint',
     'lua_ls',
+    'pylsp',
     'ruby_ls',
     'omnisharp',
+    'terraformls',
+    'bashls'
 })
 
 local cmp = require('cmp')
@@ -125,6 +128,15 @@ lsp.configure('omnisharp', {
         end
     end,
     cmd = { omnisharp_bin };
+})
+
+lsp.configure('terraformls', {
+    on_attach = function(client, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            pattern = {"*.tf", "*.tfvars"},
+            callback = vim.lsp.buf.format(),
+        })
+    end
 })
 
 lsp.setup()

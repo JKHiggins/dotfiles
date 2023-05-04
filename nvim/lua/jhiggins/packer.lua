@@ -50,6 +50,9 @@ return require('packer').startup(function(use)
     -- Git stuff
     use('tpope/vim-fugitive')
 
+    -- Install tabnine AI LSP integration
+    use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
+
     -- Setup the LSP
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -84,4 +87,7 @@ return require('packer').startup(function(use)
 
     -- Expand motion repeating to include other movements
     use { "Houl/repmo-vim" }
+
+    -- Use custom filetype detection for improved performance
+    use { "nathom/filetype.nvim" }
 end)
