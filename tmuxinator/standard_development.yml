@@ -1,6 +1,6 @@
 # /home/jhiggins/.config/tmuxinator/standard_development.yml
 
-name: std-dev 
+name: std-dev
 root: ~/
 
 # Optional tmux socket
@@ -36,10 +36,10 @@ root: ~/
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-# startup_window: editor
+startup_window: tasklist
 
 # Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
+startup_pane: 1
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
@@ -51,12 +51,12 @@ windows:
   - tasklist:
       layout: 5184,252x70,0,0{45x70,0,0,1,160x70,46,0,0,45x70,207,0,2}
       panes:
-        - nvim_l:
-          - nvim -c "lua ToggleHiddenAll()"
+        - later_tasks:
+          - ul_later
         - tasklist:
-          - uldef group:project
-        - nvim_r:
-          - nvim -c "lua ToggleHiddenAll()"
+          - ul_def
+        - comp_tasks:
+          - ul_comp
   - shell:
       - echo 'Hello Jayce'
 

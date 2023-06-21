@@ -3,6 +3,7 @@
 export PATH=~/go/bin:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 export PATH=/home/jhiggins/.local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
 TERM="screen-256color"
 export TERM
@@ -115,7 +116,7 @@ export EDITOR='nvim'
 #
 
 # Open zshrc from anywhere
-alias zshrc='nvim ~/.zshrc'
+alias zshrc='nvim ~/.config/.zshrc'
 
 # Alias pbcopy to use xclip
 alias pbcopy='xclip -selection clipboard'
@@ -133,9 +134,18 @@ ul_massupdate='~/massupdate_ul'
 
 ultralist_g() {
     cd ~/ultralist/
+
+    echo "running ultra_g for $1 ${@:2}"
+    if [[ "$1" == 'c' ]]; then
+      echo "$1 equals 'c'"
+      ultralist e "${@:2}" due:tod
+    fi
+
     ultralist "$1" "${@:2}"
     clear
-    ultralist list completed:false group:project
+    tmux send-keys -t std-dev:tasklist.0 'ul_later' Enter
+    tmux send-keys -t std-dev:tasklist.1 'ul_def' Enter
+    tmux send-keys -t std-dev:tasklist.2 'ul_comp' Enter
     cd -
 }
 
@@ -154,9 +164,6 @@ alias -g ulan='ultralist_g an'
 # List
 alias -g ull='ultralist_g l'
 
-# Default view, clearscreen list incompletes
-alias -g uldef='clear;ull completed:false group:project'
-
 # List with notes
 alias -g uln='ultralist_g ln'
 
@@ -169,7 +176,17 @@ alias -g ulen='ultralist_g en'
 # Complete task (req ID)
 alias -g ulc='ultralist_g c'
 
+# Mass update tasks
 alias -g ul_massupdate='source ~/.local/cli_utils/massupdate_ul'
+
+# Default view, clearscreen list incompletes
+alias -g ul_def='cd ~/ultralist/;clear;ultralist list --notes completed:false group:project status:-later;cd -'
+
+# Default view, clearscreen list all completed today
+alias -g ul_comp='cd ~/ultralist/;clear;ultralist list completed:true due:tod group:project status:-later;cd -'
+
+# Default view, clearscreen list all later tasks
+alias -g ul_later='cd ~/ultralist/;clear;ultralist list status:later group:project;cd -'
 
 # > Dotnet help
 # Build and publish a win64 non-self-contained build
@@ -181,8 +198,10 @@ eval "$(~/.rbenv/bin/rbenv init - zsh)"
 
 # > Docker
 # I don't want to type sudo docker everytime
-alias dock='sudo docker'
+alias dock='docker'
 
 # > Terraform
 # I don't want to type sudo terraform every time
-alias tf='sudo terraform'
+alias tf='terraform'
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

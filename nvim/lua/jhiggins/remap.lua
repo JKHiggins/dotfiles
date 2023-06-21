@@ -50,3 +50,6 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Close all but current window
 vim.keymap.set("n", "<leader>oc", "<cmd>only<CR>")
+
+-- Insert a timestamp at the current cursor location
+vim.keymap.set("n", "<leader>ts", "i<C-R>=strftime('%FT%TZ')<CR><Esc>")

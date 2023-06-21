@@ -11,13 +11,13 @@ menu_items=(
 )
 
 editor_cd_cmd='send-keys -t std-dev:editor.0 ":cd ~/projects'
-tasklist_cd_cmd='send-keys -t std-dev:tasklist.1 "cd ~/projects'
+# tasklist_cd_cmd='send-keys -t std-dev:tasklist.1 "cd ~/projects'
 shell_cd_cmd='send-keys -t std-dev:shell.0 "cd ~/projects'
 
 for i in "${!project_directories[@]}"
 do
     cmd="$editor_cd_cmd/${project_directories[$i]}\" Enter;"
-    cmd+="$tasklist_cd_cmd/${project_directories[$i]}\" Enter; send-keys -t std-dev:tasklist.1 \"uldef\" Enter;"
+    # cmd+="$tasklist_cd_cmd/${project_directories[$i]}\" Enter; send-keys -t std-dev:tasklist.1 \"uldef\" Enter;"
     cmd+="$shell_cd_cmd/${project_directories[$i]}\" Enter; send-keys -t std-dev:shell.0 \"git status\" Enter"
 
     menu_item="'${project_directories[$i]}' $i '$cmd'"

@@ -28,13 +28,10 @@ return require('packer').startup(function(use)
         disable = false,
     }
 
-    -- Install colorscheme 'rose-pine'
+    -- Install colorscheme 'catppuccin'
     use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
+        'catppuccin/nvim',
+        as = 'catppuccin',
     })
 
     -- Give us syntax in real time
@@ -90,4 +87,10 @@ return require('packer').startup(function(use)
 
     -- Use custom filetype detection for improved performance
     use { "nathom/filetype.nvim" }
+
+    -- Install lualine to support having a powerline
+    use {
+        "nvim-lualine/lualine.nvim",
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    }
 end)
