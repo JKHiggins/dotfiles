@@ -4,6 +4,11 @@ export PATH=~/go/bin:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 export PATH=/home/jhiggins/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=$PATH:~/.dotnet/tools
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 TERM="screen-256color"
 export TERM
@@ -113,7 +118,23 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+
+##########################
+## Custom configuration ##
+##########################
+
+# Completions
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if ( ! kubectl 2> /dev/null ); then
+    NC='\033[0m' # No Color
+    YELLOW='\033[0;33m'
+    echo "${YELLOW}!! WARNING: Docker Desktop not running! 'kubectl' will not work until it is !!${NC}"
+else
+    source <(kubectl completion zsh)
+fi
+
 
 # Open zshrc from anywhere
 alias zshrc='nvim ~/.config/.zshrc'
@@ -123,10 +144,9 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
 # Alias for capturing outputs
-
 # capture the output of a command so it can be retrieved with ret
 cap () { tee /tmp/capture.out; }
-#
+
 # return the output of the most recent command that was captured by cap
 ret () { cat /tmp/capture.out; }
 

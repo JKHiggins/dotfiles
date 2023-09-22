@@ -85,9 +85,6 @@ return require('packer').startup(function(use)
     -- Expand motion repeating to include other movements
     use { "Houl/repmo-vim" }
 
-    -- Use custom filetype detection for improved performance
-    use { "nathom/filetype.nvim" }
-
     -- Install lualine to support having a powerline
     use {
         "nvim-lualine/lualine.nvim",

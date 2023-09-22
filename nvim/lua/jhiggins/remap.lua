@@ -52,4 +52,10 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>oc", "<cmd>only<CR>")
 
 -- Insert a timestamp at the current cursor location
-vim.keymap.set("n", "<leader>ts", "i<C-R>=strftime('%FT%TZ')<CR><Esc>")
+vim.keymap.set("n", "<leader>ts", "i<C-R>=strftime('%FT%TZ')<CR> - ")
+
+-- Insert a timestamp below current line
+vim.keymap.set("n", "<leader>ots", "o<Esc>o<Esc>i<C-R>=strftime('%FT%TZ')<CR> - ")
+
+-- Insert a timestamp above current line
+vim.keymap.set("n", "<leader>Ots", "O<Esc>O<Esc>i<C-R>=strftime('%FT%TZ')<CR> - ")
