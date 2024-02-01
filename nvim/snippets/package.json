@@ -1,0 +1,23 @@
+{
+	"contributes": {
+		"snippets": [
+			{
+				"language": "python",
+				"path": "./python.json"
+			},
+			{
+				"language": "lua",
+				"path": "./project-specific/nvim-lua.json"
+			},
+			{
+				"language": "javascript",
+				"path": "./javascript.json"
+			},
+			{
+				"language": "all",
+				"path": "./allFiletypes.json"
+			}
+		]
+	},
+	"name": "jayce-snippets"
+}

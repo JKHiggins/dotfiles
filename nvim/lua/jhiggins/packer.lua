@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     -- Extend the user input/select windows
@@ -35,7 +35,7 @@ return require('packer').startup(function(use)
     })
 
     -- Give us syntax in real time
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
 
     -- Harpoon some frequent files
@@ -52,24 +52,23 @@ return require('packer').startup(function(use)
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
 
             -- LSP kind, icon support
-            {'onsails/lspkind.nvim'},
+            { 'onsails/lspkind.nvim' },
         }
     }
 
@@ -89,5 +88,76 @@ return require('packer').startup(function(use)
     use {
         "nvim-lualine/lualine.nvim",
         requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    }
+
+    use 'rcarriga/nvim-notify'
+
+    use {
+        'kawre/leetcode.nvim',
+        requires = {
+            { "nvim-treesitter/nvim-treesitter" },
+            { "nvim-telescope/telescope.nvim" },
+            { "nvim-lua/plenary.nvim" }, -- required by telescope
+            { "MunifTanjim/nui.nvim" },
+            { "rcarriga/nvim-notify" },
+            { "nvim-tree/nvim-web-devicons" },
+        },
+        build = ":TSUpdate html",
+        config = function()
+            require('leetcode').setup({
+                domain = "com",
+                arg = "leetcode.nvim",
+                lang = "python",
+                sql = "mysql",
+                logging = true,
+                console = {
+                    size = {
+                        width = "75%",
+                        height = "75%",
+                    },
+                    dir = "row",
+                },
+
+                description = {
+                    width = "40%",
+                },
+            })
+        end
+    }
+
+    use {
+        "chrisgrieser/nvim-scissors",
+        dependencies = "nvim-telescope/telescope.nvim", -- optional
+        config = function()
+            require("scissors").setup({
+                snippetDir = "~/.config/nvim/snippets",
+            })
+        end,
+    }
+
+    use {
+        "nvim-neotest/neotest",
+        config = function()
+            require("jhiggins.config.neotest").post()
+        end,
+        requires = {
+            { "nvim-neotest/neotest-python" },
+            { "nvim-neotest/neotest-plenary" },
+        },
+        dependencies = {
+            { "nvim-lua/plenary.nvim" },
+            { "antoinemadec/FixCursorHold.nvim" },
+            { "nvim-treesitter/nvim-treesitter" },
+            { "nvim-neotest/neotest-python" },
+            {
+                "mfussenegger/nvim-dap",
+                lazy = true,
+                config = function()
+                    require("jhiggins.config.dap").post()
+                end,
+            },
+            { "mfussenegger/nvim-dap-python" },
+            { "rcarriga/nvim-dap-ui" }
+        }
     }
 end)

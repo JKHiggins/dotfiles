@@ -173,7 +173,7 @@ local cmp_config = lsp.defaults.cmp_config({
     formatting = {
       format = lspkind.cmp_format({
         windowmode = 'symbol_text',
-        maxwidth = 80,
+        maxwidth = 100,
         ellipsis_char = '...',
       }),
     }

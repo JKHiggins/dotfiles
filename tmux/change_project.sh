@@ -10,7 +10,7 @@ project_directories+=("../.config/")
 menu_items=(
 )
 
-editor_cd_cmd='send-keys -t std-dev:editor.0 ":cd ~/projects'
+editor_cd_cmd='send-keys -t std-dev:editor.0 "cd ~/projects'
 # tasklist_cd_cmd='send-keys -t std-dev:tasklist.1 "cd ~/projects'
 shell_cd_cmd='send-keys -t std-dev:shell.0 "cd ~/projects'
 
