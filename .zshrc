@@ -139,6 +139,9 @@ fi
 # Open zshrc from anywhere
 alias zshrc='nvim ~/.config/.zshrc'
 
+# Open neovim config from anywhere
+alias nvimrc='nvim ~/.config/nvim'
+
 # Alias pbcopy to use xclip
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
@@ -152,7 +155,17 @@ ret () { cat /tmp/capture.out; }
 
 ul_massupdate='~/massupdate_ul'
 
+# Toggle ignore-space. Useful when entering passwords.
+alias history-ignore-space-on='\
+setopt hist_ignore_space;\
+echo "Commands starting with space are now EXCLUDED from history."'
+
+alias history-ignore-space-off='\
+unsetopt hist_ignore_space;\
+echo "Commands starting with space are now ADDED to history."'
+
 ultralist_g() {
+    history-ignore-space-on
     cd ~/ultralist/
 
     echo "running ultra_g for $1 ${@:2}"
@@ -163,9 +176,8 @@ ultralist_g() {
 
     ultralist "$1" "${@:2}"
     clear
-    tmux send-keys -t std-dev:tasklist.0 'ul_later' Enter
-    tmux send-keys -t std-dev:tasklist.1 'ul_def' Enter
-    tmux send-keys -t std-dev:tasklist.2 'ul_comp' Enter
+    tmux send-keys -t std-dev:tasklist.0 ' ul_def' Enter
+    tmux send-keys -t std-dev:tasklist.1 ' ul_comp' Enter
     cd -
 }
 
@@ -195,18 +207,21 @@ alias -g ulen='ultralist_g en'
 
 # Complete task (req ID)
 alias -g ulc='ultralist_g c'
+#
+# Archive task (req ID)
+alias -g ularch='ultralist_g archive'
 
 # Mass update tasks
 alias -g ul_massupdate='source ~/.local/cli_utils/massupdate_ul'
 
 # Default view, clearscreen list incompletes
-alias -g ul_def='cd ~/ultralist/;clear;ultralist list --notes completed:false group:project status:-later;cd -'
+alias -g ul_def='cd ~/ultralist/;clear;ultralist list --notes completed:false group:project status:-later,-icebox;cd -'
 
 # Default view, clearscreen list all completed today
-alias -g ul_comp='cd ~/ultralist/;clear;ultralist list completed:true due:tod group:project status:-later;cd -'
+alias -g ul_comp='cd ~/ultralist/;clear;ultralist list completed:true due:tod group:project status:-later,-icebox;cd -'
 
 # Default view, clearscreen list all later tasks
-alias -g ul_later='cd ~/ultralist/;clear;ultralist list status:later group:project;cd -'
+alias -g ul_later='cd ~/ultralist/;clear;ultralist list status:later,icebox group:project;cd -'
 
 # > Dotnet help
 # Build and publish a win64 non-self-contained build

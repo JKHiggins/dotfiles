@@ -49,6 +49,7 @@ catpuccin.setup({
         mini = false,
         treesitter = true,
         harpoon = true,
+        neotest = true,
         native_lsp = {
             enabled = true,
             virtual_text = {

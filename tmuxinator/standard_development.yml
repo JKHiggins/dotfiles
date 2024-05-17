@@ -49,10 +49,8 @@ windows:
       panes:
         - nvim
   - tasklist:
-      layout: 5184,252x70,0,0{45x70,0,0,1,160x70,46,0,0,45x70,207,0,2}
+      layout: main-vertical
       panes:
-        - later_tasks:
-          - ul_later
         - tasklist:
           - ul_def
         - comp_tasks:

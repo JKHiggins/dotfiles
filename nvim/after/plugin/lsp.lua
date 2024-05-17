@@ -138,14 +138,16 @@ local cmp_config = lsp.defaults.cmp_config({
       },
     },
 
-    mapping = cmp.mapping.preset.insert({
-      ["<C-j>"] = cmp.mapping.select_next_item(),
-      ["<C-k>"] = cmp.mapping.select_prev_item(),
-      ["<Tab>"] = cmp.mapping.confirm({
-        -- this is the important line
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-      }),
+    preselect = cmp.PreselectMode.None,
+    completion = {
+      completeopt = "menu,menuone,noinsert",
+    },
+
+    mapping = {
+      ["<CR>"] = cmp.config.disable,
+      ["<C-n>"] = cmp.mapping.select_next_item(),
+      ["<C-p>"] = cmp.mapping.select_prev_item(),
+      ["<C-y>"] = cmp.mapping.confirm(),
       ["<C-l>"] = cmp.mapping(function(fallback)
         if luasnip and luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
@@ -160,7 +162,7 @@ local cmp_config = lsp.defaults.cmp_config({
           fallback()
         end
       end, { "i", "s" }),
-    }),
+    },
 
     sources = cmp.config.sources({
       -- { name = "copilot", group_index = 2 },
@@ -179,4 +181,4 @@ local cmp_config = lsp.defaults.cmp_config({
     }
   })
 
-  cmp.setup(cmp_config)
+cmp.setup(cmp_config)

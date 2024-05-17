@@ -151,7 +151,6 @@ return require('packer').startup(function(use)
             { "nvim-neotest/neotest-python" },
             {
                 "mfussenegger/nvim-dap",
-                lazy = true,
                 config = function()
                     require("jhiggins.config.dap").post()
                 end,
