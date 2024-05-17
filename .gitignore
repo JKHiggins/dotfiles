@@ -2,3 +2,4 @@ NuGet/
 .mono
 kelyn/
 .tfenv
+nvim/plugin/packer_compiled.lua
