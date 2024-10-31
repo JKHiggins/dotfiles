@@ -9,7 +9,7 @@ return require('packer').startup(function(use)
 
     -- Install Telescope
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        'nvim-telescope/telescope.nvim', tag = '0.1.8',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
@@ -46,6 +46,15 @@ return require('packer').startup(function(use)
 
     -- Git stuff
     use('tpope/vim-fugitive')
+
+    -- Install a snippets engine
+    use({
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!:).
+        run = "make install_jsregexp"
+    })
 
     -- Setup the LSP
     use {
@@ -93,39 +102,6 @@ return require('packer').startup(function(use)
     use 'rcarriga/nvim-notify'
 
     use {
-        'kawre/leetcode.nvim',
-        requires = {
-            { "nvim-treesitter/nvim-treesitter" },
-            { "nvim-telescope/telescope.nvim" },
-            { "nvim-lua/plenary.nvim" }, -- required by telescope
-            { "MunifTanjim/nui.nvim" },
-            { "rcarriga/nvim-notify" },
-            { "nvim-tree/nvim-web-devicons" },
-        },
-        build = ":TSUpdate html",
-        config = function()
-            require('leetcode').setup({
-                domain = "com",
-                arg = "leetcode.nvim",
-                lang = "python",
-                sql = "mysql",
-                logging = true,
-                console = {
-                    size = {
-                        width = "75%",
-                        height = "75%",
-                    },
-                    dir = "row",
-                },
-
-                description = {
-                    width = "40%",
-                },
-            })
-        end
-    }
-
-    use {
         "chrisgrieser/nvim-scissors",
         dependencies = "nvim-telescope/telescope.nvim", -- optional
         config = function()
@@ -134,6 +110,8 @@ return require('packer').startup(function(use)
             })
         end,
     }
+
+    use { "nvim-neotest/nvim-nio" }
 
     use {
         "nvim-neotest/neotest",

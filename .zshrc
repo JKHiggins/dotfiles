@@ -19,7 +19,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
+#
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# TODO: ZSH_THEME=powerlevel10k/powerlevel10k
 ZSH_THEME="af-magic"
 
 ## set colors for LS_COLORS
@@ -231,12 +233,47 @@ alias dn_pub='dotnet build;dotnet publish -r win-x64 --no-self-contained'
 # copy my dotfiles and create a commit
 eval "$(~/.rbenv/bin/rbenv init - zsh)"
 
-# > Docker
-# I don't want to type sudo docker everytime
-alias dock='docker'
-
 # > Terraform
 # I don't want to type sudo terraform every time
 alias tf='terraform'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+#######
+# CDK #
+#######
+
+alias ds3devcdk="TARGET_ACCOUNT='381492292423' TARGET_REGION='us-east-2' ENV_NAME='DS3Dev' FE_ZONE='dev.ds3.datastor.io' BE_ZONE='dev.ds3.datastorio.cloud' OU_PATH='o-8e0bi2raya/r-1hky/ou-1hky-92ubcpue/*' cdk"
+
+##########
+# Docker #
+##########
+
+if grep -q "microsoft" /proc/version > /dev/null 2>&1; then
+    if service docker status 2>&1 | grep -q "is not running"; then
+        wsl.exe --distribution "${WSL_DISTRO_NAME}" --user root \
+            --exec /usr/sbin/service docker start > /dev/null 2>&1
+    fi
+fi
+
+# > Build and push docker image to ecr
+dock_bp() {
+    docker build -t $1:$2 .
+    docker tag $1:$2 "$3".dkr.ecr.us-east-1.amazonaws.com/"$1":latest
+    docker push "$3".dkr.ecr.us-east-1.amazonaws.com/"$1":latest
+}
+
+###################
+# Venv Management #
+###################
+
+switch_venv() {
+    deactivate
+    source .venv/bin/activate
+}
+
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=$HOME/.virtualenvs/venv/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/.virtualenvs/venv/bin/virtualenv
+source $HOME/.virtualenvs/venv/bin/virtualenvwrapper.sh
+

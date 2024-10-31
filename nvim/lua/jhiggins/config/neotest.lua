@@ -47,7 +47,8 @@ function M.post()
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
-        pytest_discovery = true,
+        runner = "pytest",
+        -- pytest_discovery = true,
       }),
       require("neotest-plenary"),
     },

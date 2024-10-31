@@ -46,15 +46,17 @@ startup_pane: 1
 
 windows:
   - editor:
-      panes:
-        - nvim
+    panes:
+      - nvim
   - tasklist:
-      layout: main-vertical
-      panes:
-        - tasklist:
-          - ul_def
-        - comp_tasks:
-          - ul_comp
+    layout: main-vertical
+    panes:
+      - tasklist:
+        - ul_def
+      - comp_tasks:
+        - ul_comp
   - shell:
-      - echo 'Hello Jayce'
-
+    - echo 'Hello Jayce'
+  - scratch:
+    panes:
+      - cd ~/projects/scratch-space; tmux send-keys c-l

@@ -56,6 +56,3 @@ vim.keymap.set("n", "<leader>ts", "i<C-R>=strftime('%FT%TZ')<CR> - ")
 
 -- Insert a timestamp below current line
 vim.keymap.set("n", "<leader>ots", "o<Esc>o<Esc>i<C-R>=strftime('%FT%TZ')<CR> - ")
-
--- Insert a timestamp above current line
-vim.keymap.set("n", "<leader>Ots", "O<Esc>O<Esc>i<C-R>=strftime('%FT%TZ')<CR> - ")
