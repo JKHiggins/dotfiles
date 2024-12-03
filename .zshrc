@@ -265,17 +265,10 @@ dock_bp() {
     docker push "$3".dkr.ecr.us-east-1.amazonaws.com/"$1":latest
 }
 
-###################
-# Venv Management #
-###################
+############################
+# Python & Venv Management #
+############################
 
-switch_venv() {
-    deactivate
-    source .venv/bin/activate
-}
-
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=$HOME/.virtualenvs/venv/bin/python
-export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/.virtualenvs/venv/bin/virtualenv
-source $HOME/.virtualenvs/venv/bin/virtualenvwrapper.sh
-
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
