@@ -1,16 +1,24 @@
 local lsp = require("lsp-zero")
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  -- Replace the language servers listed here
-  -- with the ones you want to install
-  ensure_installed = {'lua_ls'},
-  handlers = {
-    function(server_name)
-      require('lspconfig')[server_name].setup({})
-    end,
-  }
-})
+local mason_opts = {
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+        },
+        border = "rounded",
+    },
+}
+
+local ensure_installed = {
+    'lua_ls', 'pyright', 'ruff'
+}
+
+local lspconfig = require("lspconfig")
+local mason = require("mason")
+local mason_lspconfig = require('mason-lspconfig')
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
@@ -24,6 +32,36 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 end)
+
+mason.setup(mason_opts)
+mason_lspconfig.setup({ ensure_installed })
+
+lspconfig.pyright.setup({
+    capabilities = capabilities,
+    settings = {
+        pyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true,
+        },
+        python = {
+            analysis = {
+                typeCheckingMode = "basic"
+            }
+        }
+    }
+})
+
+lspconfig.ruff.setup({
+    on_attach = function(client, bufnr)
+        -- Disable hover in favor of Pyright
+        client.server_capabilities.hoverProvider = false
+    end,
+    init_options = {
+        settings = {
+            args = {},
+        }
+    }
+})
 
 local omnisharp_bin = "/home/jhiggins/.local/omnisharp/OmniSharp"
 
