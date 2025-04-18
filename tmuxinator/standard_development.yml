@@ -38,22 +38,20 @@ root: ~/
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
-# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-startup_window: tasklist
-
-# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-startup_pane: 1
-
 windows:
   - main_editor:
     root: ~/projects
-  - tasklist:
-    layout: main-vertical
-    panes:
-      - default:
-        - ul_def
-      - completed:
-        - ul_comp
-  - shell: echo 'Hello Jayce'
-  - scratch:
-    root: ~/projects/scratch-space
+  - docker: echo 'run docker here'
+  # - tasklist:
+  #   layout: "124b,280x78,0,0{160x78,0,0,1,119x78,161,0,4}"
+  #   panes:
+  #     - ul_def
+  #     - ul_comp
+  - shell: echo 'do shell stuff?'
+  - scratch: echo 'use for whatever'
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+startup_window: 2
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+startup_pane: 1

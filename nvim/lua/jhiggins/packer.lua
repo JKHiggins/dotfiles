@@ -99,8 +99,10 @@ return require('packer').startup(function(use)
         requires = { 'nvim-tree/nvim-web-devicons', opt = true },
     }
 
+    -- Popup modals
     use 'rcarriga/nvim-notify'
 
+    -- Snippets
     use {
         "chrisgrieser/nvim-scissors",
         dependencies = "nvim-telescope/telescope.nvim", -- optional
@@ -111,6 +113,7 @@ return require('packer').startup(function(use)
         end,
     }
 
+    -- Testing
     use { "nvim-neotest/nvim-nio" }
 
     use {
@@ -136,5 +139,17 @@ return require('packer').startup(function(use)
             { "mfussenegger/nvim-dap-python" },
             { "rcarriga/nvim-dap-ui" }
         }
+    }
+
+    -- Note tracking
+    use {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" }
+    }
+
+    -- Code searching
+    use {
+        "ibhagwan/fzf-lua",
+        requires = { "nvim-tree/nvim-web-devicons" }
     }
 end)

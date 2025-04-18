@@ -48,7 +48,7 @@ lspconfig.pyright.setup({
                 typeCheckingMode = "basic"
             }
         }
-    }
+    },
 })
 
 lspconfig.ruff.setup({
@@ -62,6 +62,8 @@ lspconfig.ruff.setup({
         }
     }
 })
+
+lspconfig.jsonls.setup({})
 
 local omnisharp_bin = "/home/jhiggins/.local/omnisharp/OmniSharp"
 

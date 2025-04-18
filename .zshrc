@@ -90,7 +90,6 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
     aws
     git
-    timer
     zsh-autosuggestions
 )
 
@@ -130,15 +129,6 @@ export EDITOR='nvim'
 
 # Completions
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-if ( ! kubectl 2> /dev/null ); then
-    NC='\033[0m' # No Color
-    YELLOW='\033[0;33m'
-    echo "${YELLOW}!! WARNING: Docker Desktop not running! 'kubectl' will not work until it is !!${NC}"
-else
-    source <(kubectl completion zsh)
-fi
-
 
 # Open zshrc from anywhere
 alias zshrc='nvim ~/.config/.zshrc'
@@ -241,12 +231,6 @@ alias tf='terraform'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-#######
-# CDK #
-#######
-
-alias ds3devcdk="TARGET_ACCOUNT='381492292423' TARGET_REGION='us-east-2' ENV_NAME='DS3Dev' FE_ZONE='dev.ds3.datastor.io' BE_ZONE='dev.ds3.datastorio.cloud' OU_PATH='o-8e0bi2raya/r-1hky/ou-1hky-92ubcpue/*' cdk"
-
 ##########
 # Docker #
 ##########
@@ -265,6 +249,9 @@ dock_bp() {
     docker push "$3".dkr.ecr.us-east-1.amazonaws.com/"$1":latest
 }
 
+
+alias swag='docker run -d -p 80:8080 swaggerapi/swagger-editor'
+
 ############################
 # Python & Venv Management #
 ############################
@@ -272,3 +259,17 @@ dock_bp() {
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+#######
+# FZF #
+#######
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+##################
+# Autocompletion #
+##################
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
