@@ -274,19 +274,10 @@ complete -o nospace -C /usr/bin/terraform terraform
 # Load Angular CLI autocompletion.
 source <(ng completion script)
 
-# Overwrite afmagic config to escape everything properly to work nicely with tmux resizes
-# dashed separator size
-function afmagic_dashes {
-  local python_env_dir="${VIRTUAL_ENV:-$CONDA_DEFAULT_ENV}"
-  local python_env="${python_env_dir##*/}"
+##########
+# PROMPT #
+##########
 
-  if [[ -n "$python_env" && "$PS1" = *\(${python_env}\)* ]]; then
-    echo $(( COLUMNS - ${#python_env} - 3 ))
-  else
-    echo $COLUMNS
-  fi
-}
-#
 # tell zsh to re-substitute $(…) and %D{…} on every prompt
 setopt prompt_subst
 
