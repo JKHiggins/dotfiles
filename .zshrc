@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=~/go/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 export PATH=/home/jhiggins/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
@@ -22,7 +22,7 @@ export ZSH="$HOME/.oh-my-zsh"
 #
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # TODO: ZSH_THEME=powerlevel10k/powerlevel10k
-ZSH_THEME="af-magic"
+# ZSH_THEME="af-magic"
 
 ## set colors for LS_COLORS
 eval `dircolors ~/.dircolors`
@@ -273,3 +273,58 @@ complete -o nospace -C /usr/bin/terraform terraform
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# Overwrite afmagic config to escape everything properly to work nicely with tmux resizes
+# dashed separator size
+function afmagic_dashes {
+  local python_env_dir="${VIRTUAL_ENV:-$CONDA_DEFAULT_ENV}"
+  local python_env="${python_env_dir##*/}"
+
+  if [[ -n "$python_env" && "$PS1" = *\(${python_env}\)* ]]; then
+    echo $(( COLUMNS - ${#python_env} - 3 ))
+  else
+    echo $COLUMNS
+  fi
+}
+#
+# tell zsh to re-substitute $(…) and %D{…} on every prompt
+setopt prompt_subst
+
+precmd() {
+  # build the timestamp
+  local ts="[$(date +'%H:%M:%S %m/%d/%y')]"
+  # compute how many dashes we need so that dash_count + ${#ts} == $COLUMNS
+  local dash_count=$(( COLUMNS - ${#ts} - 6))
+  # generate that many dashes
+  local dashes
+  printf -v dashes '%*s' "$dash_count" ''
+  dashes=${dashes// /-}
+
+  # print one colored line: dashes + timestamp
+  # we color both parts grey (38;5;237), then reset
+  printf '\e[38;5;237m%s%s\e[0m\n' "$dashes" "$ts"
+}
+
+# leave PS1 as a single line, no newlines
+PS1="%{${FG[032]}%}%~\$(git_prompt_info)\$(hg_prompt_info) %{${FG[105]}%}%(!.#.»)%{${reset_color}%} "
+
+# secondary prompt (continuation), e.g. when you type a multiline command
+PS2="%{${fg[red]}%} %{${reset_color}%}"
+
+# git settings
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{${FG[075]}%}(%{${FG[078]}%}"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_DIRTY="%{${FG[214]}%}*%{${reset_color}%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{${FG[075]}%})%{${reset_color}%}"
+
+# hg settings
+ZSH_THEME_HG_PROMPT_PREFIX=" %{${FG[075]}%}(%{${FG[078]}%}"
+ZSH_THEME_HG_PROMPT_CLEAN=""
+ZSH_THEME_HG_PROMPT_DIRTY="%{${FG[214]}%}*%{${reset_color}%}"
+ZSH_THEME_HG_PROMPT_SUFFIX="%{${FG[075]}%})%{${reset_color}%}"
+
+# virtualenv settings
+ZSH_THEME_VIRTUALENV_PREFIX=" %{${FG[075]}%}["
+ZSH_THEME_VIRTUALENV_SUFFIX="]%{${reset_color}%}"
+
+RPROMPT=''
