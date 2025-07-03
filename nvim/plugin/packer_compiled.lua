@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1713484068/share/lua/5.1/?.lua;/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1713484068/share/lua/5.1/?/init.lua;/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1713484068/lib/luarocks/rocks-5.1/?.lua;/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1713484068/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1713484068/lib/lua/5.1/?.so"
+local package_path_str = "/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?.lua;/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?/init.lua;/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?.lua;/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/jhiggins/.cache/nvim/packer_hererocks/2.1.1741730670/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -110,7 +110,7 @@ _G.packer_plugins = {
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["dressing.nvim"] = {
-    config = { "\27LJ\2\n²\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\a\0005\4\6\0=\4\b\3=\3\t\2B\0\2\1K\0\1\0\vselect\fbackend\1\0\1\fbackend\0\1\4\0\0\14telescope\bfzf\fbuiltin\ninput\1\0\2\ninput\0\vselect\0\1\0\1\rrelative\veditor\nsetup\rdressing\frequire\0" },
+    config = { "\27LJ\2\n²\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\a\0005\4\6\0=\4\b\3=\3\t\2B\0\2\1K\0\1\0\vselect\fbackend\1\0\1\fbackend\0\1\4\0\0\14telescope\bfzf\fbuiltin\ninput\1\0\2\vselect\0\ninput\0\1\0\1\rrelative\veditor\nsetup\rdressing\frequire\0" },
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/dressing.nvim",
     url = "https://github.com/stevearc/dressing.nvim"
@@ -125,16 +125,6 @@ _G.packer_plugins = {
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
   },
-  ["lsp-zero.nvim"] = {
-    loaded = true,
-    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
-    url = "https://github.com/VonHeikemen/lsp-zero.nvim"
-  },
-  ["lsp_signature.nvim"] = {
-    loaded = true,
-    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
-    url = "https://github.com/ray-x/lsp_signature.nvim"
-  },
   ["lspkind.nvim"] = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
@@ -145,15 +135,10 @@ _G.packer_plugins = {
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
-  ["mason-lspconfig.nvim"] = {
-    loaded = true,
-    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
-    url = "https://github.com/williamboman/mason-lspconfig.nvim"
-  },
   ["mason.nvim"] = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/mason.nvim",
-    url = "https://github.com/williamboman/mason.nvim"
+    url = "https://github.com/mason-org/mason.nvim"
   },
   neotest = {
     config = { "\27LJ\2\nD\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tpost\28jhiggins.config.neotest\frequire\0" },
@@ -233,6 +218,11 @@ _G.packer_plugins = {
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/repmo-vim",
     url = "https://github.com/Houl/repmo-vim"
   },
+  ["snacks.nvim"] = {
+    loaded = true,
+    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/snacks.nvim",
+    url = "https://github.com/folke/snacks.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -261,18 +251,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: neotest
+time([[Config for neotest]], true)
+try_loadstring("\27LJ\2\nD\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tpost\28jhiggins.config.neotest\frequire\0", "config", "neotest")
+time([[Config for neotest]], false)
 -- Config for: nvim-scissors
 time([[Config for nvim-scissors]], true)
 try_loadstring("\27LJ\2\n`\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\15snippetDir\28~/.config/nvim/snippets\nsetup\rscissors\frequire\0", "config", "nvim-scissors")
 time([[Config for nvim-scissors]], false)
 -- Config for: dressing.nvim
 time([[Config for dressing.nvim]], true)
-try_loadstring("\27LJ\2\n²\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\a\0005\4\6\0=\4\b\3=\3\t\2B\0\2\1K\0\1\0\vselect\fbackend\1\0\1\fbackend\0\1\4\0\0\14telescope\bfzf\fbuiltin\ninput\1\0\2\ninput\0\vselect\0\1\0\1\rrelative\veditor\nsetup\rdressing\frequire\0", "config", "dressing.nvim")
+try_loadstring("\27LJ\2\n²\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\a\0005\4\6\0=\4\b\3=\3\t\2B\0\2\1K\0\1\0\vselect\fbackend\1\0\1\fbackend\0\1\4\0\0\14telescope\bfzf\fbuiltin\ninput\1\0\2\vselect\0\ninput\0\1\0\1\rrelative\veditor\nsetup\rdressing\frequire\0", "config", "dressing.nvim")
 time([[Config for dressing.nvim]], false)
--- Config for: neotest
-time([[Config for neotest]], true)
-try_loadstring("\27LJ\2\nD\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tpost\28jhiggins.config.neotest\frequire\0", "config", "neotest")
-time([[Config for neotest]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

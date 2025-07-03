@@ -58,13 +58,8 @@ return require('packer').startup(function(use)
 
     -- Setup the LSP
     use {
-        'VonHeikemen/lsp-zero.nvim',
+        'neovim/nvim-lspconfig',
         requires = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
-
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },
             { 'hrsh7th/cmp-buffer' },
@@ -81,8 +76,10 @@ return require('packer').startup(function(use)
         }
     }
 
-    -- Change behavior of signature popups
-    use { "ray-x/lsp_signature.nvim" }
+    -- Use Mason to manage LSP servers
+    use {
+        "mason-org/mason.nvim"
+    }
 
     -- Convient character wrap changing
     use { "tpope/vim-surround" }
@@ -110,7 +107,7 @@ return require('packer').startup(function(use)
             require("scissors").setup({
                 snippetDir = "~/.config/nvim/snippets",
             })
-        end,
+        end
     }
 
     -- Testing
@@ -151,5 +148,11 @@ return require('packer').startup(function(use)
     use {
         "ibhagwan/fzf-lua",
         requires = { "nvim-tree/nvim-web-devicons" }
+    }
+
+    use {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
     }
 end)

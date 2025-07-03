@@ -1,57 +1,63 @@
-local lsp = require("lsp-zero")
-
-local mason_opts = {
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
-        },
-        border = "rounded",
-    },
-}
-
-local ensure_installed = {
-    'lua_ls', 'pyright', 'ruff'
-}
-
+require("mason").setup()
 local lspconfig = require("lspconfig")
-local mason = require("mason")
-local mason_lspconfig = require('mason-lspconfig')
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-end)
+vim.lsp.config('*', {
+    on_attach = function(_, bufnr)
+        -- we create a function that lets us more easily define mappings specific
+        -- for LSP related items. It sets the mode, buffer and description for us each time.
+        local nmap = function(keys, func, desc)
+            if desc then
+                desc = 'LSP: ' .. desc
+            end
+            vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+        end
 
-mason.setup(mason_opts)
-mason_lspconfig.setup({ ensure_installed })
+        nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+        nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+        nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+        nmap('gr', function() Snacks.picker.lsp_references() end, '[G]oto [R]eferences')
+        nmap('gI', function() Snacks.picker.lsp_implementations() end, '[G]oto [I]mplementation')
+        nmap('<leader>ds', function() Snacks.picker.lsp_symbols() end, '[D]ocument [S]ymbols')
+        nmap('<leader>ws', function() Snacks.picker.lsp_workspace_symbols() end, '[W]orkspace [S]ymbols')
 
-lspconfig.pyright.setup({
-    capabilities = capabilities,
+        -- See `:help K` for why this keymap
+        nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+        nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+        -- Lesser used LSP functionality
+        nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+        nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+        nmap('<leader>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, '[W]orkspace [L]ist Folders')
+
+        -- Create a command `:Format` local to the LSP buffer
+        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+            vim.lsp.buf.format()
+        end, { desc = 'Format current buffer with LSP' })
+    end,
+    offset_encoding='utf-8',
+})
+
+vim.lsp.config('pyright', {
+    on_attach = vim.lsp.config['*'].on_attach,
     settings = {
-        pyright = {
+        ['pyright'] = {
             -- Using Ruff's import organizer
             disableOrganizeImports = true,
         },
-        python = {
+        ['python'] = {
             analysis = {
                 typeCheckingMode = "basic"
             }
         }
     },
+    root_markers = { '.git' },
 })
 
-lspconfig.ruff.setup({
+vim.lsp.config('ruff', {
     on_attach = function(client, bufnr)
         -- Disable hover in favor of Pyright
         client.server_capabilities.hoverProvider = false
@@ -67,7 +73,7 @@ lspconfig.jsonls.setup({})
 
 local omnisharp_bin = "/home/jhiggins/.local/omnisharp/OmniSharp"
 
-lsp.configure('omnisharp', {
+lspconfig.omnisharp.setup({
     on_attach = function(client, bufnr)
         if client.name == "omnisharp" then
             client.server_capabilities.semanticTokensProvider = {
@@ -149,7 +155,7 @@ lsp.configure('omnisharp', {
     cmd = { omnisharp_bin },
 })
 
-lsp.configure('terraformls', {
+lspconfig.terraformls.setup({
     on_attach = function(client, bufnr)
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = { "*.tf", "*.tfvars" },
@@ -158,7 +164,14 @@ lsp.configure('terraformls', {
     end
 })
 
-lsp.setup()
+vim.lsp.enable('ruff')
+vim.lsp.enable('pyright')
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('bash_ls')
+vim.lsp.enable('terraformls')
+vim.lsp.enable('jsonls')
+vim.lsp.enable('omnisharp')
+
 
 local cmp = require 'cmp'
 local lspkind = require 'lspkind'
