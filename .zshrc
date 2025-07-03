@@ -6,6 +6,8 @@ export PATH=/home/jhiggins/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=$PATH:~/.dotnet/tools
+export PATH=$PATH:/opt/nvim-linux-x86_64/bin
+
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
