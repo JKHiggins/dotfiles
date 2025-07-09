@@ -69,6 +69,14 @@ vim.lsp.config('ruff', {
     }
 })
 
+vim.lsp.config('ts_ls', {
+    on_attach = vim.lsp.config['*'].on_attach,
+})
+
+vim.lsp.config('angularls', {
+    on_attach = vim.lsp.config['*'].on_attach,
+})
+
 lspconfig.jsonls.setup({})
 
 local omnisharp_bin = "/home/jhiggins/.local/omnisharp/OmniSharp"
@@ -171,6 +179,8 @@ vim.lsp.enable('bash_ls')
 vim.lsp.enable('terraformls')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('omnisharp')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('angularls')
 
 
 local cmp = require 'cmp'
