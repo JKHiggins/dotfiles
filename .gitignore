@@ -3,3 +3,8 @@ NuGet/
 kelyn/
 .tfenv
 nvim/plugin/packer_compiled.lua
+gh/
+go/
+configstore*
+Bitwarden*
+gh-copilot*

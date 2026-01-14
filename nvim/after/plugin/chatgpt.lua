@@ -1,0 +1,6 @@
+-- require("chatgpt").setup({
+--     api_key_cmd = "/bin/bash -c \"$HOME/.local/bin/get-openai-key.sh\"",
+--     openai_params = {
+--         model = "gpt-5-chat-latest",
+--     }
+-- })

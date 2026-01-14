@@ -7,6 +7,7 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=$PATH:~/.dotnet/tools
 export PATH=$PATH:/opt/nvim-linux-x86_64/bin
+export PATH=$PATH:/home/jhiggins/go/bin
 
 export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 export NVM_DIR="$HOME/.nvm"
@@ -273,9 +274,6 @@ eval "$(pyenv init -)"
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
 ##########
 # PROMPT #
 ##########
@@ -321,3 +319,5 @@ ZSH_THEME_VIRTUALENV_PREFIX=" %{${FG[075]}%}["
 ZSH_THEME_VIRTUALENV_SUFFIX="]%{${reset_color}%}"
 
 RPROMPT=''
+
+export CODEX_AGENTS_HOME="/home/jhiggins/projects/kelyn-technologies/codex-agents"

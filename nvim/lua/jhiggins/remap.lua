@@ -56,3 +56,10 @@ vim.keymap.set("n", "<leader>ts", "i<C-R>=strftime('%FT%TZ')<CR> - ")
 
 -- Insert a timestamp below current line
 vim.keymap.set("n", "<leader>ots", "o<Esc>o<Esc>i<C-R>=strftime('%FT%TZ')<CR> - ")
+
+-- Sculptor Assistance
+vim.keymap.set("n", "<leader>cm", function() SwitchComponentFile("component_model") end, { desc = "Switch to component model file" })
+vim.keymap.set("n", "<leader>ccm", function() SwitchComponentFile("construct_model") end, { desc = "Switch to construct model file" })
+vim.keymap.set("n", "<leader>cb", function() SwitchComponentFile("builder") end, { desc = "Switch to builder file" })
+vim.keymap.set("n", "<leader>co", function() SwitchComponentFile("component_orchestrator") end, { desc = "Switch to component orchestrator file" })
+vim.keymap.set("n", "<leader>cco", function() SwitchComponentFile("construct_orchestrator") end, { desc = "Switch to construct orchestrator file" })

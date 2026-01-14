@@ -10,9 +10,9 @@ require("snacks").setup({
   indent = { enabled = false, },
   gitbrowse = {},
   scope = {},
+  zen = {enabled = true}
 })
 
-vim.keymap.set("n", "<c-\\>", function() Snacks.terminal.open() end, { desc = 'Snacks Terminal' })
 vim.keymap.set("n", "<leader>_", function() Snacks.lazygit.open() end, { desc = 'Snacks LazyGit' })
 vim.keymap.set('n', "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
 vim.keymap.set('n', "<leader><leader>s", function() Snacks.picker.buffers() end, { desc = "Search Buffers" })
@@ -38,3 +38,6 @@ vim.keymap.set('n', "<leader>sM", function() Snacks.picker.man() end, { desc = "
 vim.keymap.set('n', "<leader>sq", function() Snacks.picker.qflist() end, { desc = "Quickfix List" })
 vim.keymap.set('n', "<leader>sR", function() Snacks.picker.resume() end, { desc = "Resume" })
 vim.keymap.set('n', "<leader>su", function() Snacks.picker.undo() end, { desc = "Undo History" })
+
+-- Nice to have
+vim.keymap.set('n', "<leader>z",  function() Snacks.zen() end, { desc = "Toggle Zen Mode" })

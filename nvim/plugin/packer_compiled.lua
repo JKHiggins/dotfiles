@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["ChatGPT.nvim"] = {
+    loaded = true,
+    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/ChatGPT.nvim",
+    url = "https://github.com/jackMort/ChatGPT.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -156,6 +161,11 @@ _G.packer_plugins = {
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/neotest-python",
     url = "https://github.com/nvim-neotest/neotest-python"
   },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -233,6 +243,11 @@ _G.packer_plugins = {
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
     url = "https://github.com/folke/todo-comments.nvim"
   },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
   undotree = {
     loaded = true,
     path = "/home/jhiggins/.local/share/nvim/site/pack/packer/start/undotree",
@@ -251,10 +266,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: neotest
-time([[Config for neotest]], true)
-try_loadstring("\27LJ\2\nD\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tpost\28jhiggins.config.neotest\frequire\0", "config", "neotest")
-time([[Config for neotest]], false)
 -- Config for: nvim-scissors
 time([[Config for nvim-scissors]], true)
 try_loadstring("\27LJ\2\n`\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\15snippetDir\28~/.config/nvim/snippets\nsetup\rscissors\frequire\0", "config", "nvim-scissors")
@@ -263,6 +274,10 @@ time([[Config for nvim-scissors]], false)
 time([[Config for dressing.nvim]], true)
 try_loadstring("\27LJ\2\n²\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\a\0005\4\6\0=\4\b\3=\3\t\2B\0\2\1K\0\1\0\vselect\fbackend\1\0\1\fbackend\0\1\4\0\0\14telescope\bfzf\fbuiltin\ninput\1\0\2\vselect\0\ninput\0\1\0\1\rrelative\veditor\nsetup\rdressing\frequire\0", "config", "dressing.nvim")
 time([[Config for dressing.nvim]], false)
+-- Config for: neotest
+time([[Config for neotest]], true)
+try_loadstring("\27LJ\2\nD\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tpost\28jhiggins.config.neotest\frequire\0", "config", "neotest")
+time([[Config for neotest]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

@@ -43,6 +43,7 @@ return require('packer').startup(function(use)
 
     -- A nice undotree that maintains undo history
     use('mbbill/undotree')
+    use('pixelastic/vim-undodir-tree')
 
     -- Git stuff
     use('tpope/vim-fugitive')
@@ -155,4 +156,17 @@ return require('packer').startup(function(use)
         priority = 1000,
         lazy = false,
     }
+
+    -- ChatGPT
+
+    use {
+        "jackMort/ChatGPT.nvim",
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "folke/trouble.nvim",
+            "nvim-telescope/telescope.nvim"
+        }
+    }
+
 end)

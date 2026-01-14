@@ -38,7 +38,7 @@ vim.lsp.config('*', {
             vim.lsp.buf.format()
         end, { desc = 'Format current buffer with LSP' })
     end,
-    offset_encoding='utf-8',
+    offset_encoding = 'utf-8',
 })
 
 vim.lsp.config('pyright', {
@@ -74,7 +74,37 @@ vim.lsp.config('ts_ls', {
 })
 
 vim.lsp.config('angularls', {
-    on_attach = vim.lsp.config['*'].on_attach,
+    on_attach = function(client, bufnr)
+        local exclude_filetypes = { 'html' }
+        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+        for _, excluded in ipairs(exclude_filetypes) do
+            if ft == excluded then
+                if (vim.fn.has("nvim-0.11") == 1) then
+                    client:stop()
+                else
+                    client.stop()
+                end
+                return
+            end
+        end
+    end
+})
+
+vim.lsp.config('superhtml', {
+    on_attach = function(client, bufnr)
+        local filetypes = { "html", "shtml", "htm" }
+        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+        for _, filetype in ipairs(filetypes) do
+            if ft == filetype then
+                vim.lsp.start({
+                    name = "superhtml",
+                    cmd = { "superhtml", "lsp" },
+                    root_dir = vim.fs.dirname(vim.fs.find({ ".git" }, { upward = true })[1])
+                })
+            end
+        end
+    end
+
 })
 
 lspconfig.jsonls.setup({})
@@ -181,6 +211,8 @@ vim.lsp.enable('jsonls')
 vim.lsp.enable('omnisharp')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('angularls')
+vim.lsp.enable('dockerls')
+vim.lsp.enable('superhtml')
 
 
 local cmp = require 'cmp'
