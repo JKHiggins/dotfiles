@@ -32,12 +32,18 @@ if [ "${1:-}" = "--popup" ]; then
     )
   fi
 
+  config_dir="$HOME/.config"
+  if [ -d "$config_dir" ]; then
+    list=$(printf '%s\n' "$list" "$config_dir" | sed '/^$/d' | sort -u)
+  fi
+
   target=$(printf '%s\n' "$list" | fzf --prompt="Project dir > " --no-multi) || exit 0
 
   # Quote path to preserve spaces and special characters.
   quoted=$(printf "'%s'" "$(printf '%s' "$target" | sed "s/'/'\\\\''/g")")
   tmux setw synchronize-panes on
   tmux send-keys "cd -- $quoted" C-m
+  tmux send-keys "clear" C-m
   tmux setw synchronize-panes off
   exit 0
 fi
